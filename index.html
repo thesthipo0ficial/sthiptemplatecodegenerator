@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/main/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+
+
+    <title>SthipCode Generator</title>
+    <style>
+      /* Estilos generales */
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #000;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    border-radius: 5px;
+}
+/* Estilos para el contenedor de resultados */
+#results-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Estilos para el contenedor de pósters */
+.posters-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Espacio entre los pósters */
+}
+
+/* Estilos para los elementos de póster */
+.movie-poster {
+    width: 200px; /* Ancho fijo para los pósters */
+    cursor: pointer;
+    transition: transform 0.2s;
+    border-radius: 10px; /* Bordes redondos */
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.4); /* Sombra */
+}
+
+/* Estilo para el póster seleccionado */
+.movie-poster.selected {
+    transform: scale(1.1);
+}
+
+/* Estilos para la imagen del póster */
+.movie-poster img {
+    width: 100%;
+    height: auto;
+}
+
+/* Estilos para el título del póster */
+.movie-title {
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente */
+    color: white;
+    font-size: 18px;
+    padding: 5px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+/* Estilos para el botón de búsqueda */
+#search-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+
+
+/* Estilos para el botón de búsqueda */
+#search-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px; /* Tamaño de fuente */
+    border-radius: 5px; /* Bordes redondos */
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+/* Estilo hover para el botón de búsqueda */
+#search-button:hover {
+    background-color: #0056b3; /* Cambia el color de fondo al pasar el mouse */
+    transform: scale(1.05); /* Agranda ligeramente el botón al pasar el mouse */
+}
+
+/* Estilo activo para el botón de búsqueda (cuando se hace clic) */
+#search-button:active {
+    background-color: #004899; /* Cambia el color de fondo al hacer clic */
+}
+/* Encabezado */
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #ff0000;
+}
+
+
+
+/* Estilos para el contenedor de resultados de series de televisión */
+#series-results {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Estilos para el contenedor de pósters de series */
+.posters-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Espacio entre los pósters */
+}
+
+/* Estilos para los elementos de póster de series */
+.series-poster {
+    width: 200px; /* Ancho fijo para los pósters */
+    cursor: pointer;
+    transition: transform 0.2s;
+    border-radius: 10px; /* Bordes redondos */
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.4); /* Sombra */
+}
+
+/* Estilo para el póster seleccionado de series */
+.series-poster.selected {
+    transform: scale(1.1);
+}
+
+/* Estilos para la imagen del póster de series */
+.series-poster img {
+    width: 100%;
+    height: auto;
+}
+
+/* Estilos para el título del póster de series */
+.series-title {
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente */
+    color: white;
+    font-size: 18px;
+    padding: 5px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+/* Estilos para el botón de búsqueda de series */
+#search-series-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px; /* Tamaño de fuente */
+    border-radius: 5px; /* Bordes redondos */
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+/* Estilo hover para el botón de búsqueda de series */
+#search-series-button:hover {
+    background-color: #0056b3; /* Cambia el color de fondo al pasar el mouse */
+    transform: scale(1.05); /* Agranda ligeramente el botón al pasar el mouse */
+}
+
+/* Estilo activo para el botón de búsqueda de series (cuando se hace clic) */
+#search-series-button:active {
+    background-color: #004899; /* Cambia el color de fondo al hacer clic */
+}
+
+/* Ventana modal de configuración */
+#config-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.modal-content {
+    background-color: #000;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+label {
+    color: #ff0000;
+}
+
+input[type="text"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    background-color: #000;
+    border: 1px solid #ff0000;
+    color: #fff;
+}
+
+/* Botones de acción */
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn-movies,
+.btn-series,
+#save-config-button,
+#copy-button {
+    background-color: #ff0000;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.btn-movies:hover,
+.btn-series:hover,
+#save-config-button:hover,
+#copy-button:hover {
+    background-color: #800000;
+}
+
+/* Código HTML generado */
+#generated-code {
+    background-color: #000;
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+}
+
+
+#generated-code textarea {
+    width: 100%;
+    height: 300px;
+    border: 1px solid #ff0000;
+    background-color: #000;
+    color: #fff;
+    margin-top: 10px;
+}
+
+/* Formularios */
+.input-form {
+    display: none;
+}
+
+.input-form.active {
+    display: block;
+}
+
+.input-form label {
+    color: #ff0000;
+}
+
+.input-form input[type="text"],
+.input-form input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    background-color: #000;
+    border: 1px solid #ff0000;
+    color: #fff;
+}
+
+/* Estilo para los botones de copiar */
+.btn-secondary {
+    background-color: #736969;
+    color: #fff;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+
+/* Estilo para los botones de copiar */
+.btn-secondaro {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+}
+
+.btn-secondaro:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Cuadro de texto para el código de la película */
+/* Título para el cuadro de texto del código de películas */
+h3#movie-code-title {
+    color: #ff0000;
+}
+
+textarea#movie-code {
+    width: 100%;
+    height: 300px;
+    border: 1px solid #ff0000;
+    background-color: #000;
+    color: #fff;
+    margin-top: 10px;
+}
+
+/* Botón de copiar para el código de películas */
+button#copy-movie-code {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    margin-top: 10px;
+}
+
+button#copy-movie-code:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Estilo para el botón de copiar código de la página de inicio */
+#copy-homepage-code {
+    background-color: #007bff; /* Cambia el color de fondo a tu preferencia */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+}
+
+#copy-homepage-code:hover {
+    background-color: #007bff; /* Cambia el color de fondo al pasar el cursor */
+}
+
+/* Estilo para el botón de copiar código */
+.btn-copy {
+    background-color: #007bff; /* Cambia el color de fondo a tu preferencia */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.btn-copy:hover {
+    background-color: #007bff; /* Cambia el color de fondo al pasar el cursor */
+}
+
+/* Estilo para ocultar la ventana modal por defecto */
+#about-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 14px; /* Tamaño de fuente más pequeño */
+    color: white; /* Color de texto personalizado */
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    z-index: 1;
+}
+
+/* Estilo para el contenedor cuadrado */
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px; /* Ancho y alto cuadrado */
+    height: 300px; /* Ancho y alto cuadrado */
+    background-color: #000; /* Fondo negro */
+    padding: 20px;
+    border: 2px solid #ff0000; /* Borde rojo */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+/* Estilo para el botón de cerrar */
+#close-about-button {
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+/* Estilo para el botón de cerrar al pasar el cursor */
+#close-about-button:hover {
+    background-color: #800000;
+
+
+
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <h1 style="font-family: 'TuFuentePersonalizada', sans-serif; font-size: 36px; font-weight: bold; color: #FF0000; text-transform: uppercase; letter-spacing: 2px; text-align: center;">SthipTemplateCode Generator</h1>
+
+        <div class="button-container">
+            <button class="btn btn-movies" id="movies-button">Peliculas</button>
+            <button class="btn btn-series" id="series-button">Series</button>
+        </div>
+        <!-- Formulario de películas -->
+        <section class="input-form movie-input">
+            <label for="movie-name"> Buscar pelicula:</label>
+<input type="text" id="movie-name" placeholder="Escribe el nombre de la pelicula">
+<button id="search-button">Buscar</button>
+
+<!-- Contenedor para mostrar los resultados -->
+<div id="results-container"></div>
+
+            <label for="tmdb-id">ID/Codigo TMDB de la pelicula:</label>
+            <input type="text" id="tmdb-id" placeholder="Ej. 12345">
+            <label for="video-link">Enlace de Video:</label>
+            <input type="text" id="video-link" placeholder="URL del video">
+            <label for="download-link">Enlace de Descarga:</label>
+            <input type="text" id="download-link" placeholder="URL de descarga">
+            <button id="generate-button" class="btn btn-primary">Generar Codigo</button>
+
+<textarea id="movie-code" readonly></textarea>
+<button class="btn btn-copy" id="copy-movie-code">Copiar Codigo</button>
+
+
+
+
+
+
+        </section>
+        <!-- Formulario de series -->
+        <section class="input-form series-input">
+            <label for="series-name">Buscar serie:</label>
+<input type="text" id="series-name" placeholder="Escribe el nombre de la serie">
+<button id="search-series-button">Buscar</button>
+
+<div id="series-results" class="posters-container">
+    <!-- Aquí se mostrarán los pósters de las series de televisión -->
+</div>
+            <label for="tmdb-series-id">ID/Codigo TMDB de la serie:</label>
+            <input type="text" id="tmdb-series-id" placeholder="Ej. 67890">
+            <label for="season-number">Numero de Temporada:</label>
+             
+            <input type="number" id="season-number" placeholder="Numero de temporada">
+             <div>
+             <div>
+            <button id="import-episodes-button" class="btn btn-primary">Importar Episodios</button>
+            <span>&nbsp;</span>
+
+
+            <label for="start-episode">Desde el Capitulo:</label>
+            <input type="number" id="start-episode" placeholder="Numero de episodio inicial">
+            <label for="end-episode">Hasta el Capitulo:</label>
+            <input type="number" id="end-episode" placeholder="Numero de episodio final">
+            <button id="generate-series-button" class="btn btn-primary">Generar Codigo</button>
+             <!-- Cuadro de texto para el código de la página de inicio de la serie -->
+<!-- Título para el cuadro de texto de la página de inicio de la serie -->
+<h3 style="font-size: 18px; margin-top: 20px;">C&oacute;digo de la P&aacute;gina de Inicio</h3>
+
+
+<textarea id="homepage-code" readonly></textarea>
+<button class="btn btn-secondary" id="copy-homepage-code">Copiar Codigo</button>
+
+<!-- Título para el cuadro de texto de la página de temporadas de la serie -->
+<h3 style="font-size: 18px; margin-top: 20px;">C&oacute;digo de  Temporadas</h3>
+
+<textarea id="seasons-code" readonly></textarea>
+<button class="btn btn-secondaro" id="copy-seasons-code">Copiar Codigo</button>
+
+
+
+        </section>
+        <section class="movie-details">
+            <h3 style="font-size: 18px; margin-top: 20px;">Ajustes de Generador</h3>
+
+            <div id="movie-info">
+                <!-- La información de la película o serie se mostrará aquí -->
+            </div>
+       <section class="movie-configuration">
+    <button id="config-button" class="btn btn-secondary">
+        <i class="fas fa-cog"></i> Ajustes
+    </button>
+
+    <button id="open-about-button" class="btn btn-primary">Acerca de</button>
+    <button class="btn btn-primarp" onclick="window.open('https://www.themoviedb.org/', '_blank')">
+        <i class="fas fa-external-link-alt" style="margin-right: 5px;"></i>
+        <span style="font-weight: bold; color: #0180ff;">Ir a TMDB</span>
+    </button>
+</section>
+
+
+        </section>
+    </div>
+<!-- Ventana modal de configuración -->
+<div id="config-modal">
+    <div class="modal-content">
+        <h2>Configuraci&oacute;n</h2>
+        <label for="api-key">Clave API:</label>
+        <input type="text" id="api-key" placeholder="Ingresa tu clave API">
+        <label for="language-select">Idioma Informaci&oacute;n de TMDB:</label>
+        <select id="language-select">
+            <option value="en-US">Ingl&eacute;s</option>
+            <option value="es-MX">Espa&ntilde;ol (Latinoam&eacute;rica)</option>
+            <option value="es-ES">Espa&ntilde;ol (Espa&ntilde;a)</option>
+            <option value="pt">Portugu&eacute;s</option>
+            <option value="fr-FR">Franc&eacute;s</option>
+            <option value="de-DE">Alem&aacute;n</option>
+            <option value="it-IT">Italiano</option>
+            <option value="ja">Japon&eacute;s</option>
+            <option value="zh-CN">Chino (Simplificado)</option>
+   
+</select>
+        <button id="save-config-button" class="btn btn-success">Guardar</button>
+    </div>
+</div>
+
+
+
+
+<!-- Ventana modal Acerca de -->
+<div id="about-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <img src="https://i.ibb.co/3C6D33m/ideogram-removebg-preview.png" alt="Tu Logo" width="200" height="100">
+            <h2>Acerca de</h2>
+        </div>
+        <p>Esta es una aplicaci&oacute;n web creada para generar c&oacute;digo HTML para pel&iacute;culas y series. Permite obtener informaci&oacute;n de pel&iacute;culas y series desde la API de TMDB y generar c&oacute;digo HTML personalizado.</p>
+
+        <p>Desarrollado por <strong style="color: red;"><a href="https://www.youtube.com/@The.SthipOficial" target="_blank">The Ship Oficial</a></strong></a>
+        <button id="close-about-button" class="btn btn-secondary">Cerrar</button>
+    </div>
+</div>
+
+
+
+    <div id="generated-code">
+        <textarea id="html-code" readonly></textarea>
+        <button id="copy-button" class="btn btn-success">Copiar al Portapapeles</button>
+    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+        // Obtener elementos del DOM
+// Obtén una referencia al botón de importación
+const importEpisodesButton = document.getElementById("import-episodes-button");
+
+// Función para alternar la clase 'selected' al hacer clic en un póster
+function toggleSelected(poster) {
+    poster.classList.toggle('selected');
+}
+
+
+// Obtener elementos del DOM
+const configButton = document.getElementById("config-button");
+const configModal = document.getElementById("config-modal");
+const saveConfigButton = document.getElementById("save-config-button");
+const generateButton = document.getElementById("generate-button");
+const generateSeriesButton = document.getElementById("generate-series-button");
+const apiKeyInput = document.getElementById("api-key");
+const tmdbIdInput = document.getElementById("tmdb-id");
+const tmdbSeriesIdInput = document.getElementById("tmdb-series-id");
+const videoLinkInput = document.getElementById("video-link");
+const downloadLinkInput = document.getElementById("download-link");
+const seasonNumberInput = document.getElementById("season-number");
+const startEpisodeInput = document.getElementById("start-episode");
+const endEpisodeInput = document.getElementById("end-episode");
+const movieInfo = document.getElementById("movie-info");
+const languageSelect = document.getElementById("language-select");
+const generatedCode = document.getElementById("generated-code");
+const htmlCodeTextarea = document.getElementById("html-code");
+const copyButton = document.getElementById("copy-button");
+const seriesForm = document.querySelector(".series-input");
+const moviesForm = document.querySelector(".movie-input");
+const seriesButton = document.getElementById("series-button");
+const moviesButton = document.getElementById("movies-button");
+
+// Manejar el clic en el botón de configuración
+configButton.addEventListener("click", function () {
+    configModal.style.display = "block";
+});
+
+const seriesNameInput = document.getElementById("series-name");
+const searchSeriesButton = document.getElementById("search-series-button");
+const seriesResultsContainer = document.getElementById("series-results");
+const selectedSeriesIdInput = document.getElementById("selected-series-id");
+searchSeriesButton.addEventListener("click", function () {
+    const seriesName = seriesNameInput.value;
+    const apiKey = apiKeyInput.value; // Obtener la clave de API del input "api-key"
+    if (seriesName.trim() !== "") {
+        searchSeriesByName(seriesName, apiKey);
+    }
+});
+
+
+
+function searchSeriesByName(query, apiKey) {
+    const pageSize = 6;
+    const languageSelect = document.getElementById("language-select"); // Obtener el elemento de selección de idioma
+    const selectedLanguage = languageSelect.value; // Obtener el idioma seleccionado por el usuario
+
+    const apiUrl = `https://api.themoviedb.org/3/search/tv?api_key=${apiKey}&query=${encodeURIComponent(query)}&page=1&language=${selectedLanguage}`;
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            const series = data.results.slice(0, pageSize);
+            if (series.length > 0) {
+                seriesResultsContainer.innerHTML = "";
+
+                series.forEach(serie => {
+                    const posterElement = document.createElement("div");
+                    posterElement.classList.add("series-poster");
+                    posterElement.setAttribute("data-series-id", serie.id);
+
+                    const posterImage = document.createElement("img");
+                    posterImage.src = `https://image.tmdb.org/t/p/w200${serie.poster_path}`;
+                    posterImage.alt = serie.name;
+
+                    posterElement.appendChild(posterImage);
+                    seriesResultsContainer.appendChild(posterElement);
+
+                    posterElement.addEventListener("click", function () {
+                        const selectedSeriesId = serie.id;
+                        const tmdbIdElement = document.getElementById("tmdb-series-id");
+                        if (tmdbIdElement) {
+                            tmdbIdElement.value = selectedSeriesId;
+                        }
+
+                        const allPosters = document.querySelectorAll(".series-poster");
+                        allPosters.forEach(poster => {
+                            poster.classList.remove("selected");
+                        });
+
+                        posterElement.classList.add("selected");
+                        seriesResultsContainer.innerHTML = "";
+                    });
+                });
+            } else {
+                seriesResultsContainer.innerHTML = "No se encontraron resultados.";
+            }
+        })
+        .catch(error => {
+            console.error("Error al buscar series de televisión por nombre: ", error);
+        });
+}
+
+
+document.getElementById("open-about-button").addEventListener("click", function () {
+    document.getElementById("about-modal").style.display = "block";
+});
+
+document.getElementById("close-about-button").addEventListener("click", function () {
+    document.getElementById("about-modal").style.display = "none";
+});
+
+// Manejar el clic en el botón de guardar configuración
+saveConfigButton.addEventListener("click", function () {
+    const apiKey = apiKeyInput.value;
+    const selectedLanguage = languageSelect.value;
+
+    // Guardar la clave API y la selección de idioma en el almacenamiento local
+    localStorage.setItem("apiKey", apiKey);
+    localStorage.setItem("selectedLanguage", selectedLanguage);
+
+    // Cerrar la ventana modal después de guardar la configuración
+    configModal.style.display = "none";
+});
+
+// Función para cargar la configuración al cargar la página
+window.addEventListener("load", function () {
+    // Simula un clic en el botón de "Películas"
+    moviesButton.click();
+
+    // Verificar si la clave API está almacenada localmente
+    const storedApiKey = localStorage.getItem("apiKey");
+    if (storedApiKey) {
+        apiKeyInput.value = storedApiKey;
+    }
+
+    // Verificar si la selección de idioma está almacenada localmente
+    const storedLanguage = localStorage.getItem("selectedLanguage");
+    if (storedLanguage) {
+        languageSelect.value = storedLanguage;
+    }
+});
+
+
+// Obtener elementos del DOM
+const movieNameInput = document.getElementById("movie-name");
+const movieSearchButton = document.getElementById("search-button");
+const resultsContainer = document.getElementById("results-container");
+const tmdbIdElement = document.getElementById("tmdb-id"); // Agrega la obtención del input de la clave de API
+
+// Manejar el clic en el botón de búsqueda
+movieSearchButton.addEventListener("click", function () {
+    const searchQuery = movieNameInput.value.trim();
+    if (searchQuery.length >= 3) {
+        searchMoviesByName(searchQuery);
+    } else {
+        // Limpiar los resultados si la consulta es demasiado corta
+        resultsContainer.innerHTML = "";
+    }
+});
+
+// Función para buscar películas por nombre
+function searchMoviesByName(query) {
+    const apiKey = apiKeyInput.value;
+    const pageSize = 6;
+    const backupPosterUrl = 'URL_DE_TU_IMAGEN_DE_RESPALDO'; // URL de la imagen de respaldo
+    const languageSelect = document.getElementById("language-select"); // Obtener el elemento de selección de idioma
+    const selectedLanguage = languageSelect.value; // Obtener el idioma seleccionado por el usuario
+
+    // Determinar la URL de la API de TMDB para la búsqueda de películas
+    const apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}&page=1&language=${selectedLanguage}`;
+
+    // Hacer una solicitud a la API de TMDB para buscar películas
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            const movies = data.results.slice(0, pageSize);
+            if (movies.length > 0) {
+                resultsContainer.innerHTML = "";
+
+                const postersContainer = document.createElement("div");
+                postersContainer.classList.add("posters-container");
+
+                movies.forEach(movie => {
+                    const posterElement = document.createElement("div");
+                    posterElement.classList.add("movie-poster");
+                    posterElement.setAttribute("data-movie-id", movie.id);
+
+                    const posterImage = document.createElement("img");
+                    posterImage.src = movie.poster_path
+                        ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
+                        : backupPosterUrl;
+                    posterImage.alt = movie.title;
+
+                    posterElement.appendChild(posterImage);
+                    postersContainer.appendChild(posterElement);
+
+                    posterElement.addEventListener("click", function () {
+                        const selectedMovieId = movie.id;
+                        tmdbIdElement.value = selectedMovieId;
+
+                        const allPosters = document.querySelectorAll(".movie-poster");
+                        allPosters.forEach(poster => {
+                            poster.classList.remove("selected");
+                        });
+
+                        posterElement.classList.add("selected");
+                        resultsContainer.innerHTML = "";
+                    });
+                });
+
+                resultsContainer.appendChild(postersContainer);
+            } else {
+                resultsContainer.innerHTML = "No se encontraron resultados.";
+            }
+        })
+        .catch(error => {
+            console.error("Error al buscar películas por nombre: ", error);
+        });
+}
+
+
+// Manejar el clic en el botón para copiar el código de películas
+document.getElementById("copy-movie-code").addEventListener("click", function () {
+    copyToClipboard("movie-code");
+});
+
+// Manejar el clic en el botón de generar código para películas
+generateButton.addEventListener("click", function () {
+    const apiKey = apiKeyInput.value;
+    const tmdbId = tmdbIdInput.value;
+    const videoLink = videoLinkInput.value;
+    const downloadLink = downloadLinkInput.value;
+    const selectedLanguage = languageSelect.value;
+
+
+
+    // Determinar la URL de la API de TMDB
+    const apiUrl = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}&language=${selectedLanguage}`;
+
+    // Hacer una solicitud a la API de TMDB
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          
+            const posterURL = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
+            const titulo = data.title;
+            const duracion = data.runtime;
+            const sinopsis = data.overview;
+
+            // Crear el código HTML con los detalles de la película y los enlaces
+            const htmlCode = `<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="https://dl.dropboxusercontent.com/s/8l6818zhg9mlz2e/estilosP.css">
+		<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"> 
+		<title>Plaction</title>
+
+		<style type="text/css"> 
+			#banner{
+				background-image: url('${posterURL}'); 
+			}
+
+                /* Agregar margen inferior al iframe para crear espacio */
+    .item-video {
+        margin-bottom: 5%; /* Ajusta este valor según tus necesidades */
+        background-color: black;
+        border-color: #fff;
+        border-radius: 10px;
+        border-style: solid;
+        border-width: 2px;
+    }	</style>
+
+	</head>
+
+	<body>
+		<!-- Header -->
+
+		<!-- Banner -->
+		<div class="banner" id="banner">
+			<div class="banner-contenedor">
+				<center><h1 class="banner-titulo">${titulo}</h1>
+
+				<div class="botones">
+					Duracion:${duracion} <button class="hd"> HD</button>
+				</div>
+
+				<div class="banner-sinopsis">
+					${sinopsis}
+				</div></center>
+			</div>
+
+			<div class="banner-fadeBottom"></div>
+		</div>
+<br><br>
+		 <!--Video--> 
+		<div class="video-contenedor">
+			<div class="video">
+				
+				<center><iframe class="item-video" allowfullscreen="" frameborder="0" height="695px" id="iframe2" onload="$('.iframe-loading').css('background-image');"
+				scrolling="no" src="${videoLink}" style="background-color: black; border-color: #fff; border-radius: 10px; border-style: solid; border-width: 2px;;" width="100%"></iframe></center>	
+			</div>
+
+			<div class="descarga">
+					<a href="${downloadLink}"><button type="submit" class="btn-descarga"><i class="fas fa-cloud-download-alt"></i>Descargar</button></a>
+			</div>
+		</div>
+
+		<script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"><\/script>
+	</body>
+</html>`;
+
+
+
+           // Mostrar el código HTML generado en el elemento con la ID "movie-code"
+const movieCodeElement = document.getElementById("movie-code");
+if (movieCodeElement) {
+    movieCodeElement.innerHTML = htmlCode;
+} else {
+    console.error("Elemento 'movie-code' no encontrado en el HTML.");
+}
+
+          
+
+            // Habilitar el botón de copia de código
+            copyButton.disabled = false;
+
+            // Muestra la sección de generación de películas
+            document.getElementById("movie-code").style.display = "block";
+        })
+        .catch(error => {
+            console.error("Error al obtener datos de TMDB: ", error);
+            alert("Error al obtener datos de la película. Por favor, verifica tu clave API y el ID de la película.");
+        });
+});
+
+// Manejar el clic en el botón de copia de código HTML
+copyButton.addEventListener("click", function () {
+    copyToClipboard("generated-code");
+});
+
+// Función para copiar el contenido de un elemento a portapapeles
+function copyToClipboard(elementId) {
+    const element = document.getElementById(elementId);
+    const textArea = document.createElement("textarea");
+    textArea.value = element.textContent;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
+    alert("Código copiado al portapapeles.");
+}
+
+// Cambiar entre la generación de series y películas
+seriesButton.addEventListener("click", function () {
+    seriesForm.style.display = "block";
+    moviesForm.style.display = "none";
+    seriesButton.classList.add("active");
+    moviesButton.classList.remove("active");
+    document.getElementById("movie-code").style.display = "none";
+    document.getElementById("series-code").style.display = "none";
+});
+
+moviesButton.addEventListener("click", function () {
+    moviesForm.style.display = "block";
+    seriesForm.style.display = "none";
+    moviesButton.classList.add("active");
+    seriesButton.classList.remove("active");
+    document.getElementById("movie-code").style.display = "none";
+    document.getElementById("series-code").style.display = "none";
+});
+
+// Manejar el clic en el botón de importación de episodios
+importEpisodesButton.addEventListener("click", function () {
+    const apiKey = apiKeyInput.value;
+    const tmdbSeriesId = tmdbSeriesIdInput.value;
+    const selectedLanguage = languageSelect.value;
+    const selectedSeason = seasonNumberInput.value; // Obtener el número de temporada especificado por el usuario
+
+    // Determina la URL del punto final de la API para obtener detalles de la serie
+    const apiUrl = `https://api.themoviedb.org/3/tv/${tmdbSeriesId}?api_key=${apiKey}&language=${selectedLanguage}`;
+
+    // Realiza una solicitud a la API de TMDB para obtener detalles de la serie
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            // Obtén la información de todas las temporadas de la serie
+            const seasons = data.seasons;
+
+            // Filtra la temporada seleccionada por el usuario
+            const selectedSeasonInfo = seasons.find(season => season.season_number == selectedSeason);
+
+            if (selectedSeasonInfo) {
+                // Obtiene el número de episodios en la temporada seleccionada
+                const numberOfEpisodes = selectedSeasonInfo.episode_count;
+
+                // Actualiza los campos de episodio inicial y final en el formulario
+                startEpisodeInput.value = 1; // Establece el episodio inicial en 1
+                endEpisodeInput.value = numberOfEpisodes; // Establece el episodio final en el número de episodios
+
+                // Muestra un mensaje de éxito o realiza otras acciones según tus necesidades
+                alert(`Se han importado automáticamente los episodios de la Temporada ${selectedSeason}. Los campos "Desde el Capítulo:" y "Hasta el Capítulo:" se han llenado automáticamente.`);
+            } else {
+                alert(`Temporada ${selectedSeason} no encontrada en la serie.`);
+            }
+        })
+        .catch(error => {
+            console.error("Error al obtener datos de TMDB: ", error);
+        });
+});
+
+
+// Escucha el evento click en el botón
+generateSeriesButton.addEventListener("click", function () {
+    const apiKey = apiKeyInput.value;
+    const tmdbSeriesId = tmdbSeriesIdInput.value;
+    const seasonNumber = seasonNumberInput.value;
+    const startEpisode = startEpisodeInput.value;
+    const endEpisode = endEpisodeInput.value;
+    const selectedLanguage = languageSelect.value;
+
+    // Determina la URL del punto final de la API para obtener detalles de la serie
+    const apiUrl = `https://api.themoviedb.org/3/tv/${tmdbSeriesId}?api_key=${apiKey}&language=${selectedLanguage}`;
+
+
+
+
+    // Realiza una solicitud a la API de TMDB para obtener detalles de la serie
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            const posterURL = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
+            const seriesTitle = data.name;
+            const duracion = data.episode_run_time.join(', ') + " min"; // Duración
+            const sinopsis = data.overview; // Sinopsis
+
+
+
+
+            // Crea el HTML para la página de inicio de la serie
+           const homepageHtmlCode = `
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="stylesheet" href="https://dl.dropboxusercontent.com/s/8l6818zhg9mlz2e/estilosP.css">
+                <link rel="stylesheet" href="https://dl.dropbox.com/s/l2scbh24gvsi0t3/acordeon.css">
+                <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"> 
+                <title>Plaction</title>
+                <style type="text/css"> 
+                    #banner {
+                        background-image: url('${posterURL}'); 
+                    }
+
+                    /* Agrega un margen inferior al acordeón */
+    #accordion {
+        margin-bottom: 20px; /* Puedes ajustar el valor según sea necesario */
+    }
+                </style>
+            </head>
+            <body>
+                <!-- Banner -->
+                <div class="banner" id="banner">
+                    <div class="banner-contenedor">
+                        <center>
+                            <h1 class="banner-titulo">${seriesTitle}</h1>
+                            <div class="botones">
+                                Duraci&oacute;n: ${duracion} <button class="hd"> HD</button>
+                            </div>
+                            <div class="banner-sinopsis">
+                                ${sinopsis}
+                            </div>
+                        </center>
+                    </div>
+                    <div class="banner-fadeBottom"></div>
+                </div>
+        
+                <!-- Acordeon --> 
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+               * Agrega el codigo de Temporada aqui*/
+    </li>
+</ul>
+
+
+                <script src="https://code.jquery.com/jquery-3.6.0.js"><\/script>
+                <script src="https://dl.dropbox.com/s/pr20plpy40w5hdp/main.js"><\/script>
+                <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"><\/script>
+            </body>
+            </html>
+            `;
+
+
+
+
+
+            // Crear el código HTML para la temporada con los episodios especificados en la misma temporada
+            let seasonHtmlCode = `<ul id="accordion" class="accordion">\n`;
+            seasonHtmlCode += `    <li>\n`;
+            seasonHtmlCode += `        <div class="link"><i class="fas fa-play"></i>Temporada ${seasonNumber}<i class="fa fa-chevron-down"></i></div>\n`;
+            seasonHtmlCode += `        <ul class="submenu">\n`;
+
+            // Crear el código HTML para cada episodio dentro del rango especificado
+            for (let episodeNumber = startEpisode; episodeNumber <= endEpisode; episodeNumber++) {
+                const episodeLink = `Link al Episodio ${episodeNumber}`;
+                seasonHtmlCode += `            <li><a href="${episodeLink}">Episodio ${episodeNumber}</a></li>\n`;
+            }
+
+            seasonHtmlCode += `        </ul>\n`;
+            seasonHtmlCode += `    </li>\n`;
+            seasonHtmlCode += `</ul>`;
+
+            // Mostrar los códigos generados en las áreas de texto respectivas
+            document.getElementById("homepage-code").value = homepageHtmlCode;
+            document.getElementById("seasons-code").value = seasonHtmlCode;
+        })
+        .catch(error => {
+            console.error("Error al obtener datos de TMDB: ", error);
+        });
+});
+
+// Manejar el clic en el botón "Series"
+seriesButton.addEventListener("click", function () {
+    seriesForm.classList.add("active");
+    moviesForm.classList.remove("active");
+});
+
+// Manejar el clic en el botón "Películas"
+moviesButton.addEventListener("click", function () {
+    moviesForm.classList.add("active");
+    seriesForm.classList.remove("active");
+});
+
+// Manejar el clic en el botón de copiar al portapapeles
+copyButton.addEventListener("click", function () {
+    const htmlCode = htmlCodeTextarea.value;
+    const textArea = document.createElement("textarea");
+    textArea.value = htmlCode;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
+    alert("Código copiado al portapapeles");
+});
+
+// Función para copiar el contenido de un cuadro de texto al portapapeles
+function copyToClipboard(textareaId) {
+    const textarea = document.getElementById(textareaId);
+    textarea.select();
+    document.execCommand("copy");
+    alert("Código copiado al portapapeles");
+}
+
+// Manejar clic en el botón para copiar el código de la página de inicio
+document.getElementById("copy-homepage-code").addEventListener("click", function () {
+    copyToClipboard("homepage-code");
+});
+
+// Manejar clic en el botón para copiar el código de la página de temporadas
+document.getElementById("copy-seasons-code").addEventListener("click", function () {
+    copyToClipboard("seasons-code");
+});
+
+
+
+/*
+  STHIPTEMPLATECODE GENERATOR
+  Copyright © 2023 The Sthip oficial
+*/
+
+
+
+
+    </script>
+</body>
+</html>
